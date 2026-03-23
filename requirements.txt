@@ -1,0 +1,11 @@
+streamlit
+torch
+torchvision
+opencv-python
+fer
+pillow
+numpy
+google-api-python-client
+lyricsgenius
+openai-clip
+isodate
