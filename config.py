@@ -1,7 +1,4 @@
-from dotenv import load_dotenv
-import os
+import streamlit as st
 
-load_dotenv()
-
-YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
-GENIUS_ACCESS_TOKEN = os.getenv("GENIUS_ACCESS_TOKEN")
+YOUTUBE_API_KEY = st.secrets["YOUTUBE_API_KEY"]
+GENIUS_ACCESS_TOKEN = st.secrets["GENIUS_ACCESS_TOKEN"]
