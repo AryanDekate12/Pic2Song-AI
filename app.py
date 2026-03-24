@@ -8,10 +8,13 @@ from utils.youtube_api import search_youtube_music
 from utils.genius_api import get_lyrics
 
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
+@st.cache_resource
+def load_clip_model():
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    model, preprocess = clip.load("ViT-B/32", device=device)
+    return model, preprocess, device
 
-model, preprocess = clip.load("ViT-B/32", device=device)
-
+model, preprocess, device = load_clip_model()
 
 vibes = [
     "happy smiling selfie",
