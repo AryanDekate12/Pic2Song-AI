@@ -1,33 +1,65 @@
 # 🎵 Pic2Song AI
 
-An AI-powered web app that recommends songs based on images.  
-Upload a photo and get music suggestions matching the mood and scene of the image.
+Pic2Song AI is an AI-powered web application that recommends songs based on the vibe of an uploaded image.  
+The system analyzes the image using AI and suggests songs that match the mood and scene — perfect for Instagram stories or social media posts.
 
-## 🚀 Features
+---
 
-- Image emotion detection
-- Scene understanding using CLIP
-- Song recommendations based on mood
-- Supports Hindi, Punjabi, and English songs
+## 🚀 Live Demo
+
+Try the application here:
+
+https://pic2song-ai.streamlit.app/
+
+---
+
+## 🎥 Demo Video
+
+Watch the project demo here:
+
+
+https://github.com/user-attachments/assets/6c32f7cb-5254-4eb0-838f-ca128a50cc3d
+
+
+---
+
+## 🧠 How It Works
+
+1. User uploads an image  
+2. AI analyzes the image using CLIP  
+3. The detected vibe is used to generate a music search query  
+4. Songs are fetched from YouTube  
+5. The app displays:
+   - Recommended songs
+   - Video links
+   - Lyrics preview (if available)
+
+---
+
+## ✨ Features
+
+- Image-based music recommendation
+- AI scene understanding using CLIP
+- Multi-language song suggestions
+  - Hindi
+  - Punjabi
+  - English
 - Filters mashups, remixes, and YouTube shorts
 - Lyrics preview (when available)
+- Deployed using Streamlit Cloud
 
-## 🧠 Technologies Used
+---
+
+## 🛠 Tech Stack
 
 - Python
 - Streamlit
 - OpenAI CLIP
-- FER (Facial Emotion Recognition)
+- PyTorch
 - YouTube Data API
 - Genius API
 
-## 📸 How It Works
-
-1. Upload an image
-2. AI detects emotion and scene
-3. Generates a music search query
-4. Fetches songs from YouTube
-5. Displays songs with thumbnails and lyrics
+---
 
 ## 📂 Project Structure
 
@@ -35,12 +67,17 @@ Upload a photo and get music suggestions matching the mood and scene of the imag
 Pic2Song-AI
 │
 ├── app.py
-├── api_keys.py
+├── config.py
 ├── requirements.txt
-├── utils
-│   ├── youtube_api.py
-│   └── genius_api.py
+├── README.md
+├── .env.example
+│
+└── utils
+    ├── youtube_api.py
+    └── genius_api.py
 ```
+
+---
 
 ## ⚙️ Installation
 
@@ -63,17 +100,42 @@ Run the app
 streamlit run app.py
 ```
 
-## 📷 Demo
+---
 
-Upload an image and get song recommendations instantly.
+## 🔑 API Setup
 
-## ⭐ Future Improvements
+Create a `.env` file or use Streamlit secrets.
 
-- Instagram caption generator
-- Better song matching with embeddings
-- Spotify integration
-- Music player inside the app
+Example:
+
+```
+YOUTUBE_API_KEY=your_youtube_api_key
+GENIUS_ACCESS_TOKEN=your_genius_token
+```
 
 ---
 
-Built with ❤️ using AI
+## 📈 Future Improvements
+
+- Instagram caption generator
+- Spotify integration
+- Better song recommendation using embeddings
+- Built-in music player
+
+---
+
+## ⭐ Support
+
+If you like this project, please give it a ⭐ on GitHub.
+
+---
+
+## 👨‍💻 Author
+
+**Aryan Dekate**
+
+GitHub  
+https://github.com/AryanDekate12
+
+LinkedIn  
+https://www.linkedin.com/in/aryan-dekate-1b1129288/
