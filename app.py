@@ -3,43 +3,33 @@ import torch
 import clip
 from PIL import Image
 import numpy as np
-import cv2
-from fer import FER
 
 from utils.youtube_api import search_youtube_music
 from utils.genius_api import get_lyrics
 
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-model, preprocess = clip.load("ViT-B/32", device=device)
 
-emotion_detector = FER(mtcnn=True)
+model, preprocess = clip.load("ViT-B/32", device=device)
 
 
 vibes = [
-    "a smiling selfie photo",
-    "a mirror selfie",
-    "a couple romantic photo",
-    "friends group photo",
-    "people dancing at a party",
+    "happy smiling selfie",
+    "romantic couple photo",
+    "friends party celebration",
     "gym workout selfie",
-    "travel photo with mountains",
-    "sunset beach aesthetic photo",
-    "night city lights aesthetic",
+    "travel mountains photo",
+    "sunset beach aesthetic",
+    "night city aesthetic",
     "sad emotional portrait",
     "car driving photo",
     "cafe aesthetic photo",
     "festival celebration photo",
     "nature landscape photo",
-    "road trip travel photo",
-    "college friends photo",
-    "wedding celebration photo",
-    "romantic date photo",
-    "holiday vacation photo"
 ]
 
 
-def detect_scene(image):
+def detect_vibe(image):
 
     image_input = preprocess(image).unsqueeze(0).to(device)
 
@@ -57,37 +47,20 @@ def detect_scene(image):
     return vibes[indices[0]]
 
 
-def detect_emotion(image_np):
-
-    try:
-
-        img = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
-
-        result = emotion_detector.detect_emotions(img)
-
-        if result:
-            emotions = result[0]["emotions"]
-            return max(emotions, key=emotions.get)
-
-        return "neutral"
-
-    except:
-        return "neutral"
-
-
 st.title("🎵 Pic2Song AI")
-st.write("Upload a photo and get songs matching your Instagram story vibe")
+
+st.write("Upload an image and get songs matching the vibe.")
 
 
 language = st.selectbox(
     "Select Song Language",
-    ["hindi","punjabi","english","any"]
+    ["hindi", "punjabi", "english", "any"]
 )
 
 
 uploaded_file = st.file_uploader(
     "Upload Image",
-    type=["jpg","jpeg","png"]
+    type=["jpg", "jpeg", "png"]
 )
 
 
@@ -97,40 +70,24 @@ if uploaded_file:
 
     st.image(image, use_container_width=True)
 
-    image_np = np.array(image)
+    vibe = detect_vibe(image)
 
-    emotion = detect_emotion(image_np)
+    st.subheader("Detected Vibe")
 
-    scene = detect_scene(image)
-
-    st.subheader("Detected Emotion")
-    st.write(emotion)
-
-    st.subheader("Detected Scene")
-    st.write(scene)
-
-
-    emotion_to_music = {
-        "happy":"party dance",
-        "sad":"sad emotional",
-        "neutral":"chill relaxing",
-        "angry":"energetic workout",
-        "surprise":"trending viral"
-    }
-
-    music_mood = emotion_to_music.get(emotion,"chill")
+    st.write(vibe)
 
 
     language_map = {
-        "hindi":"bollywood hindi song t-series",
-        "punjabi":"punjabi song ap dhillon sidhu moosewala",
-        "english":"english pop official music video",
-        "any":"official music video"
+        "hindi": "bollywood hindi song",
+        "punjabi": "punjabi song",
+        "english": "english pop song",
+        "any": "official music video"
     }
 
-    language_query = language_map.get(language,"")
 
-    query = f"{language_query} {music_mood}"
+    language_query = language_map.get(language, "")
+
+    query = f"{language_query} {vibe}"
 
 
     if st.button("🎵 Get Songs"):
