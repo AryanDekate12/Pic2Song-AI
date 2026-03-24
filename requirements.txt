@@ -1,11 +1,10 @@
 streamlit
 torch
 torchvision
-opencv-python-headless
-fer
 pillow
 numpy
 google-api-python-client
 lyricsgenius
 openai-clip
 isodate
+opencv-python-headless
